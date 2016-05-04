@@ -2,7 +2,7 @@ ext {
     aGroup = 'ru.primetalk'
 // To publish to maven central:
 // 1. change version — remove SNAPSHOT.
-// 2. put _${scalaMajorVersion} in artifact names. (already done)
+// 2. put _${scalaMinorVersion} in artifact names. (already done)
 // 3. enableSigning = true
 // 4. issue at shell:
 //     gradle uploadArchives
@@ -14,36 +14,36 @@ ext {
 // The artifacts should appear in Maven Central.
 //
 
-    aVersion = '1.4.1-SNAPSHOT'
+    aVersion = '1.0.1-SNAPSHOT'
     enableSigning = false
-//    aVersion = '1.4.0'//'1.2.0-SNAPSHOT'
+//    aVersion = '1.0.1'//'1.2.0-SNAPSHOT'
 //    enableSigning = true
 
 
-    scalaMajorVersion = '2.11'
-    scalaFullVersion = "${scalaMajorVersion}.6"
-    scalaTest = "org.scalatest:scalatest_${scalaMajorVersion}:2.2.4"
-    shapelessDep = "com.chuusai:shapeless_${scalaMajorVersion}:2.1.0"
-//    scalaMajorVersion = '2.10'
-//    scalaFullVersion = "${scalaMajorVersion}.5"
-//    scalaTest = "org.scalatest:scalatest_${scalaMajorVersion}:2.2.4"
-//    shapelessDep = "com.chuusai:shapeless_${scalaMajorVersion}.4:2.1.0"
+    scalaMinorVersion = '2.11'
+    scalaFullVersion = "${scalaMinorVersion}.8"
+    scalaTest = "org.scalatest:scalatest_${scalaMinorVersion}:2.2.6"
+    shapelessDep = "com.chuusai:shapeless_${scalaMinorVersion}:2.3.0"
+//    scalaMinorVersion = '2.10'
+//    scalaFullVersion = "${scalaMinorVersion}.5"
+//    scalaTest = "org.scalatest:scalatest_${scalaMinorVersion}:2.2.4"
+//    shapelessDep = "com.chuusai:shapeless_${scalaMinorVersion}.4:2.1.0"
 
     scalaLib = "org.scala-lang:scala-library:${scalaFullVersion}"
     scalaReflect = "org.scala-lang:scala-reflect:${scalaFullVersion}"
 
     akkaVersion = '2.3.9'
-    slf4j = 'org.slf4j:slf4j-api:1.7.10'
-    logback = 'ch.qos.logback:logback-classic:1.1.2'
-    rxDep = 'com.netflix.rxjava:rxjava-scala:0.20.7'
+    slf4j = 'org.slf4j:slf4j-api:1.7.21'
+    logback = 'ch.qos.logback:logback-classic:1.1.7'
+//    rxDep = 'com.netflix.rxjava:rxjava-scala:0.20.7'
     junit = 'junit:junit:4.12'
-    pegdown = 'org.pegdown:pegdown:1.4.2'
+    pegdown = 'org.pegdown:pegdown:1.6.0'
 }
 // Troubleshooting:
 // gradle OutOfMemoryError: PermGen space:
 // JAVAOPTS="-Xmx1024M -XX:MaxPermSize=512M"
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.3'
+    gradleVersion = '2.13'
 }
 
 gradle.taskGraph.whenReady { taskGraph ->
@@ -71,7 +71,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath "com.github.maiflai:gradle-scalatest:0.6-5-g9065d91"
+        classpath "com.github.maiflai:gradle-scalatest:0.12"
     }
 }
 
@@ -161,7 +161,7 @@ subprojects {
     }
 
     dependencies {
-        deployerJars "org.apache.maven.wagon:wagon-http:2.2"
+        deployerJars "org.apache.maven.wagon:wagon-http:2.10"
     }
 
     uploadArchives {
@@ -178,19 +178,12 @@ subprojects {
 //				}
                 beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
                 pom.project {
-                    artifactId "${project.name}_${scalaMajorVersion}"
+                    artifactId "${project.name}_${scalaMinorVersion}"
                     packaging 'jar'
-                    description 'SynapseGrid is a framework for constructing reactive real-time immutable data flow systems. ' +
-                            '-core contains everything to run a single-threaded system, ' +
-                            '-akka contains everything to run systems over Akka actors, ' +
-                            '-slf4j - enables logging, ' +
-                            '-concurrent - running systems directly over ExecutorContext without the need for Akka, ' +
-                            '-examples - a few test systems. Also there are ' +
-                            '-frames - a framework for type construction with meta information (see relations.scala). '+
-                            '-typed-expressions - a framework for defining parsers and generators for natural language. ' +
+                    description 'synapse-typed-expressions is a framework for defining parsers and generators for natural language. ' +
                             '' +
                             "The current version is $aVersion"
-                    url 'https://github.com/Primetalk/SynapseGrid'
+                    url 'https://github.com/Primetalk/synapse-expressions'
                     parent {
                         groupId 'org.sonatype.oss'
                         artifactId 'oss-parent'
@@ -199,7 +192,7 @@ subprojects {
                     licenses {
                         license {
                             name 'BSD Software License, 2-clause version'
-                            url 'https://github.com/Primetalk/SynapseGrid/blob/master/LICENSE.md'
+                            url 'https://github.com/Primetalk/synapse-expressions/blob/master/LICENSE.md'
                             distribution 'repo'
                         }
                     }
@@ -223,9 +216,9 @@ subprojects {
                     }
 
                     scm {
-                        url 'https://github.com/Primetalk/SynapseGrid'
-                        connection 'scm:git:git@github.com:Primetalk/SynapseGrid.git'
-                        developerConnection 'scm:git:git@github.com:Primetalk/SynapseGrid.git'
+                        url 'https://github.com/Primetalk/synapse-expressions'
+                        connection 'scm:git:git@github.com:Primetalk/synapse-expressions.git'
+                        developerConnection 'scm:git:git@github.com:Primetalk/synapse-expressions.git'
                     }
 
                 }
