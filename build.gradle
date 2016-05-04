@@ -5,7 +5,7 @@ ext {
 // 2. put _${scalaMinorVersion} in artifact names. (already done)
 // 3. enableSigning = true
 // 4. issue at shell:
-//     gradle uploadArchives
+//     ./gradlew uploadArchives --no-daemon
 // 5. Login to oss sonatype https://oss.sonatype.org/index.html
 // 6. Do migration:
 //    - remove synapse-grid-examples from repository,
@@ -14,7 +14,7 @@ ext {
 // The artifacts should appear in Maven Central.
 //
 
-    aVersion = '1.0.1-SNAPSHOT'
+    aVersion = '1.0.2-SNAPSHOT'
     enableSigning = false
 //    aVersion = '1.0.1'//'1.2.0-SNAPSHOT'
 //    enableSigning = true
