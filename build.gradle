@@ -237,61 +237,6 @@ subprojects {
         sign configurations.archives
     }
 }
-project(':synapse-grid-core') {}
-
-project(':synapse-grid-slf4j') {
-    dependencies {
-        compile project(':synapse-grid-core')
-        compile slf4j
-        testRuntime logback
-    }
-}
-
-project(':synapse-grid-akka') {
-    dependencies {
-        compile project(':synapse-grid-slf4j')
-        compile "com.typesafe.akka:akka-actor_$scalaMajorVersion:$akkaVersion"
-        compile "com.typesafe.akka:akka-remote_$scalaMajorVersion:$akkaVersion"
-        compile "com.typesafe.akka:akka-slf4j_$scalaMajorVersion:$akkaVersion"
-
-        testRuntime logback
-    }
-}
-
-project(':synapse-grid-shapeless') {
-    dependencies {
-        compile project(':synapse-grid-core')
-        compile shapelessDep
-    }
-}
-
-project(':synapse-grid-concurrent') {
-    dependencies {
-        compile project(':synapse-grid-core')
-        compile shapelessDep
-    }
-}
-
-project(':synapse-grid-rx') {
-    dependencies {
-        compile project(':synapse-grid-core')
-        compile rxDep
-    }
-}
-
-project(':synapse-grid-examples') {
-    dependencies {
-        compile project(':synapse-grid-akka')
-        compile project(':synapse-grid-rx')
-        testRuntime logback
-    }
-}
-
-//project(':synapse-frames') {
-//    dependencies {
-//        compile scalaReflect
-//    }
-//}
 
 project(':synapse-typed-expressions') {
     dependencies {
